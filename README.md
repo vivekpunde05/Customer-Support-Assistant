@@ -122,7 +122,7 @@ Place your PDF at:
 data/sample_knowledge_base.pdf
 ```
 
-If no PDF is provided, a built-in sample knowledge base (TechCorp policies) is used automatically.
+If no PDF is provided, a sample knowledge base (TechCorp policies) is automatically created as a text file fallback during the build step.
 
 ### 6. Build the vector store
 
@@ -131,6 +131,16 @@ python main.py --build
 ```
 
 This processes the PDF, creates embeddings, and saves the ChromaDB index. Run once.
+
+**First time?** Run the setup wizard to verify your configuration:
+```bash
+python main.py --setup
+```
+
+**Check API connectivity:**
+```bash
+python main.py --check
+```
 
 ### 7. Start chatting
 
@@ -162,6 +172,7 @@ All settings live in `config.py` and can be overridden via environment variables
 | `CHUNK_SIZE` | `500` | PDF chunk size (tokens) |
 | `CHUNK_OVERLAP` | `50` | Chunk overlap |
 | `TOP_K_RETRIEVAL` | `3` | Documents retrieved per query |
+| `SIMILARITY_THRESHOLD` | `0.7` | Minimum relevance score for retrieved chunks |
 | `HITL_CONFIDENCE_THRESHOLD` | `0.6` | Below this → escalate |
 
 ### Alternative Groq models
@@ -263,6 +274,9 @@ Defines the LangGraph `StateGraph` with all nodes and conditional edges. Call `c
 ## 🧪 Running Tests
 
 ```bash
+# Run setup wizard (first-time users)
+python main.py --setup
+
 # Check API connectivity
 python main.py --check
 
@@ -291,6 +305,7 @@ pypdf>=3.17.0
 sentence-transformers>=2.2.2
 groq>=0.4.0
 python-dotenv>=1.0.0
+requests>=2.31.0
 streamlit>=1.30.0
 ```
 
@@ -328,5 +343,3 @@ MIT License — see [LICENSE](LICENSE) for details.
 - [Groq](https://groq.com) — blazing fast free-tier LLM inference
 - [ChromaDB](https://www.trychroma.com) — open-source vector database
 - [Sentence Transformers](https://www.sbert.net) — free local embeddings
-"# RAG_customer_support_bot" 
-#
